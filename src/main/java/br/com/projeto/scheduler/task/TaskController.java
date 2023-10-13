@@ -4,10 +4,8 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import br.com.projeto.scheduler.util.Utils;
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +26,6 @@ public class TaskController {
 
     @PostMapping("/")
     public ResponseEntity create(@RequestBody Task task, HttpServletRequest request) {
-        System.out.println("Chegou no task controller");
         task.setIdUser((UUID) request.getAttribute("idUser"));
 
         var currentDate = LocalDateTime.now();
@@ -55,7 +52,6 @@ public class TaskController {
     @PutMapping("/{id}")
     public ResponseEntity update(@RequestBody Task task, @PathVariable UUID id, HttpServletRequest request) {
         var taskFound = this.repository.findById(id).get();
-        System.out.println(taskFound);
         if (taskFound != null) {
             UUID idUser = (UUID) request.getAttribute("idUser");
             if (!taskFound.getIdUser().equals(idUser)) {

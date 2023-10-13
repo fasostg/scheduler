@@ -24,9 +24,7 @@ public class UserController {
     @PostMapping("/")
     public ResponseEntity create(@RequestBody User user) {
         User userFound = this.repository.findByUsername(user.getUsername());
-        System.out.println("====>" + userFound);
         if (userFound != null) {
-            System.out.println("Username already created!");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username already created!");
         }
 
